@@ -4,7 +4,8 @@ export const initialState = {
   smurfs: [],
   gettingSmurfs: false,
   postingSmurf: false,
-  error: "",
+  errorGet: "none",
+  errorPost: "none",
 }
 
 export const reducer = ( state = initialState, action)=>{
@@ -13,38 +14,38 @@ export const reducer = ( state = initialState, action)=>{
       return ({
         ...state,
         gettingSmurfs: true,
-        error: "none"
+        errorGet: "none"
       });
     case GET_SMURFS_SUCCESS :
       return ({
         ...state,
         smurfs: action.payload,
         gettingSmurfs: false,
-        error: "none"
+        errorGet: "none"
       });
     case GET_SMURFS_FAIL :
       return ({
         ...state,
         gettingSmurfs: false,
-        error: action.payload
+        errorGet: action.payload
       });
     case POST_SMURFS_START :
       return ({
         ...state,
         postingSmurf: true,
-        error: "none"
+        errorPost: "none"
       });
     case POST_SMURFS_SUCCESS :
       return ({
         ...state,
         postingSmurf: false,
-        error: "none"
+        errorPost: "none"
       });
     case POST_SMURFS_FAIL :
       return ({
         ...state,
         postingSmurf: false,
-        error: action.payload
+        errorPost: action.payload
       });
     default :
       return state;

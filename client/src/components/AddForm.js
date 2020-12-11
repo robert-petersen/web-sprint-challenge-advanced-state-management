@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addSmurfs } from "./../actions/index";
+import { addSmurfs, getSmurfs } from "./../actions/index";
 
 class AddForm extends React.Component {
     constructor() {
@@ -24,6 +24,7 @@ class AddForm extends React.Component {
     }
 
     handleSubmit = (evt) => {
+        evt.preventDefault();
         this.setState({
             id: Date.now(),
         })
@@ -35,6 +36,7 @@ class AddForm extends React.Component {
             nickname: "",
             description: "", 
         })
+        this.props.getSmurfs();
     }
 
     render() {
@@ -53,7 +55,7 @@ class AddForm extends React.Component {
                     <input onChange={this.handleChange} name="description" id="description" value={this.state.description}/>
                 </div>
 
-                {this.props.error !== "none" && <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {this.props.error}</div>}
+        {this.props.errorPost !== "none" && this.props.errorGet !== "none" && <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {this.props.errorPost}{this.props.errorGet}</div>}
                 <button>Submit Smurf</button>
             </form>
         </section>);
@@ -62,11 +64,12 @@ class AddForm extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        error: state.error
+        errorPost: state.errorPost,
+        errorGet: state.errorGet
     };
   };
 
-export default connect(mapStateToProps, { addSmurfs })(AddForm);
+export default connect(mapStateToProps, { addSmurfs, getSmurfs })(AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.
